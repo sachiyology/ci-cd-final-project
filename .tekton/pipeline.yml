@@ -22,6 +22,8 @@ spec:
       params:
         - name: url
           value: https://github.com/sachiyology/ci-cd-final-project
+        - name: revision
+          value: main
       workspaces:
         - name: output
           workspace: output
