@@ -13,6 +13,7 @@ spec:
       script: |
         #!/usr/bin/env sh
         set -eu
+        echo "Cleaning workspace..."
         rm -rf *
 
 ---
@@ -25,6 +26,7 @@ spec:
     - name: source
   params:
     - name: args
+      description: Arguments to pass to nose
       type: string
       default: "-v"
   steps:
@@ -34,7 +36,11 @@ spec:
       script: |
         #!/bin/bash
         set -e
-        python -m pip install --upgrade pip
-        pip install wheel
+        echo "Upgrading pip and build tools..."
+        python -m pip install --upgrade pip setuptools wheel
+
+        echo "Installing dependencies..."
         pip install -r requirements.txt
+
+        echo "Running tests..."
         nosetests $(params.args)
