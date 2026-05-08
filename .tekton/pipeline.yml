@@ -1,0 +1,57 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: ci-cd-pipeline
+spec:
+  workspaces:
+    - name: output
+
+  tasks:
+    - name: cleanup
+      taskRef:
+        name: cleanup
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: clone
+      runAfter:
+        - cleanup
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: https://github.com/sachiyology/ci-cd-final-project
+      workspaces:
+        - name: output
+          workspace: output
+
+    - name: lint
+      runAfter:
+        - clone
+      taskRef:
+        name: flake8
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: test
+      runAfter:
+        - lint
+      taskRef:
+        name: nose
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: build
+      runAfter:
+        - test
+      taskRef:
+        name: buildah
+      params:
+        - name: IMAGE
+          value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ci-cd-final-project
+      workspaces:
+        - name: source
+          workspace: output
