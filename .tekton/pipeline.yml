@@ -24,6 +24,8 @@ spec:
           value: https://github.com/sachiyology/ci-cd-final-project.git
         - name: revision
           value: main
+        - name: subdirectory
+          value: ""
       workspaces:
         - name: output
           workspace: output
