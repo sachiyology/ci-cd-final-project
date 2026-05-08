@@ -42,3 +42,18 @@ spec:
         - lint
       taskRef:
         name: nose
+      workspaces:
+        - name: source
+          workspace: output
+
+    - name: build
+      runAfter:
+        - test
+      taskRef:
+        name: buildah
+      params:
+        - name: IMAGE
+          value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/ci-cd-final-project
+      workspaces:
+        - name: source
+          workspace: output
