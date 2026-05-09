@@ -54,11 +54,6 @@ spec:
       script: |
         #!/bin/bash
         set -e
-        echo "Upgrading pip and build tools..."
-        python -m pip install --upgrade pip setuptools wheel
-
-        echo "Installing dependencies..."
+        python -m pip install --upgrade pip wheel
         pip install -r requirements.txt
-
-        echo "Running tests..."
         nosetests $(params.args)
