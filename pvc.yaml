@@ -1,13 +1,23 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+<<<<<<< HEAD
   name: pipelinerun-pvc
 spec:
+=======
+  name: oc-lab-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+>>>>>>> 49b709b2e91b7d06afc99f54f425947f75dfa645
   storageClassName: skills-network-learner
   resources:
     requests:
       storage: 1Gi
+<<<<<<< HEAD
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
 
+=======
+>>>>>>> 49b709b2e91b7d06afc99f54f425947f75dfa645
